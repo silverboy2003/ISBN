@@ -72,7 +72,9 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WSBooks.cs" />
+    <Compile Include="WSGenre.cs" />
+    <Compile Include="GenreHelper.cs" />
+    <Compile Include="WSBook.cs" />
     <Compile Include="BookHelper.cs" />
     <Compile Include="DBHelper.cs" />
     <Compile Include="Global.asax.cs">

@@ -14,7 +14,7 @@ namespace ISBN
         {
             string sql = $"SELECT bookID, ISBN, bookName, author, publisher, bookSynopsis, numPages, numChapters, bookReleaseDate FROM Books WHERE ISBN = '{isbn}'";
             DataTable bookTable =  DBHelper.GetDataTable(sql);
-            if (bookTable != null)
+            if (bookTable.Rows.Count != 0)
                 return bookTable.Rows[0];
             return null;
         }

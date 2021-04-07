@@ -22,5 +22,11 @@ namespace ISBN
             WSBook book = WSBook.GetBookByISBN(isbn);
             return book;
         }
+        [WebMethod]
+        public List<WSGenre> GetGenresTable()
+        {
+            List<WSGenre> genres = WSGenre.GetGenresTable();
+            return genres;
+        }
     }
 }
