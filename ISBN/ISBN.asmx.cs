@@ -20,6 +20,7 @@ namespace ISBN
         public WSBook GetBookByISBN(string isbn)
         {
             WSBook book = WSBook.GetBookByISBN(isbn);
+            int i = 0;
             return book;
         }
     }
