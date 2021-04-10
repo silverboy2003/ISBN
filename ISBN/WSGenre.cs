@@ -19,11 +19,11 @@ namespace ISBN
         {
             this.genreID = genreID;
             this.genreName = genreName;
-        }
+        }//constructor
         public WSGenre()
         {
 
-        }
+        }//empty constructor
         public static List<WSGenre> GetGenresTable()
         {
             DataTable genresTable = GenreHelper.GetGenresTable();
@@ -35,6 +35,6 @@ namespace ISBN
                 allGenres.Add(new WSGenre(int.Parse(genre.ItemArray[0].ToString()), genre.ItemArray[1].ToString()));
             }
             return allGenres;
-        }
+        }//return a list of genres
     }
 }

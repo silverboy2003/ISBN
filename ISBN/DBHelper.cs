@@ -13,17 +13,14 @@ namespace ISBN
     public class DBHelper
     {
         public const int WRITEDATA_ERROR = -1;
-
         private static OleDbConnection conn = null;
-
         private static string connString;
-
         private static bool connOpen = false;
 
         public static void SetConnString(string conn)
         {
             connString = conn;
-        }
+        }//sets connection string
         public static bool OpenConnection()
         {
             if (connOpen)
@@ -41,7 +38,7 @@ namespace ISBN
             {
                 return false;
             }
-        }
+        }//opens the connection to the database
         public static OleDbDataReader ReadData(string sql)
         {
             try
@@ -61,8 +58,8 @@ namespace ISBN
 
                 return null;
             }
-        }
-        public static OleDbDataReader ReadData(string sql, string text)//sanitized
+        }//executes a read data command on the database
+        public static OleDbDataReader ReadData(string sql, string text)//sanitized read data
         {
             try
             {
@@ -83,7 +80,7 @@ namespace ISBN
                 return null;
             }
         }
-        public static OleDbDataReader ReadData(string sql, List<string> text)//sanitized for multiple
+        public static OleDbDataReader ReadData(string sql, List<string> text)//sanitized read data for multiple inputs
         {
             try
             {
@@ -126,8 +123,8 @@ namespace ISBN
 
                 return WRITEDATA_ERROR;
             }
-        }
-        public static int WriteData(string sql, string input)//sanitized for single string
+        }//executes a write data command on the database
+        public static int WriteData(string sql, string input)//sanitized write data for single string
         {
             try
             {
@@ -148,7 +145,7 @@ namespace ISBN
                 return WRITEDATA_ERROR;
             }
         }
-        public static int WriteData<T>(string sql, List<T> inputs)//sanitized for multiple inputs
+        public static int WriteData<T>(string sql, List<T> inputs)//sanitized write data for multiple inputs
         {
             try
             {
@@ -203,8 +200,8 @@ namespace ISBN
                 return WRITEDATA_ERROR;
             }
             return WRITEDATA_ERROR;
-        }
-        public static int InsertWithAutoNumKey<T>(string sql, List<T> inputs)//sanitized for multiple inputs
+        }//with insert into database it returns new itentity(id)
+        public static int InsertWithAutoNumKey<T>(string sql, List<T> inputs)//insert sanitized for multiple inputs
         {
             if (!connOpen)
             {
@@ -243,7 +240,7 @@ namespace ISBN
             }
             return WRITEDATA_ERROR;
         }
-        public static int InsertWithAutoNumKey(string sql, string input)//sanitized for single input
+        public static int InsertWithAutoNumKey(string sql, string input)//insety sanitized for single input
         {
             if (!connOpen)
             {
@@ -285,7 +282,7 @@ namespace ISBN
                 conn.Close();
                 connOpen = false;
             }
-        }
+        }//closes connection to the database
         public static DataTable GetDataTable(string sql)
         {
             try
@@ -305,8 +302,8 @@ namespace ISBN
                 CloseConnection();
                 return null;
             }
-        }
-        public static DataTable GetDataTable(string sql, string text)//sanitized
+        }//returns a datetable type collection
+        public static DataTable GetDataTable(string sql, string text)//getdatatable sanitized for single input
         {
             try
             {
@@ -326,7 +323,7 @@ namespace ISBN
                 return null;
             }
         }
-        public static DataTable GetDataTable(string sql, List<string> text)//sanitized for multiple
+        public static DataTable GetDataTable(string sql, List<string> text)//getdatatable sanitized for multiple inputs
         {
             try
             {
@@ -363,6 +360,6 @@ namespace ISBN
                 return ds;
             else
                 return null;
-        }
+        }//returns dataset of datatables
     }
 }

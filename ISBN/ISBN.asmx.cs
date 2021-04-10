@@ -28,5 +28,15 @@ namespace ISBN
             List<WSGenre> genres = WSGenre.GetGenresTable();
             return genres;
         }
+        [WebMethod]
+        public bool UpdateRating(string isbn, double newRating)
+        {
+            return WSBook.UpdateBookRating(isbn, newRating);
+        }
+        [WebMethod]
+        public bool AddNewBook(string isbn, string bookName, string author, string publisher, string synopsis, int numPages, int numChapters, double rating, DateTime bookRelease, int[] genres)
+        {
+            return (new WSBook(isbn, bookName, author, publisher, synopsis, numPages, numChapters, rating, bookRelease, genres.ToList())).InsertNewBook();
+        }
     }
 }

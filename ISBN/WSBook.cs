@@ -22,6 +22,7 @@ namespace ISBN
         private string synopsis;
         private int numPages;
         private int numChapters;
+        private double rating;
         private DateTime bookRelease;
         private List<int> genres;
         public int Id { get => id; set => id = value; }
@@ -34,10 +35,12 @@ namespace ISBN
         public int NumChapters { get => numChapters; set => numChapters = value; }
         public DateTime BookRelease { get => bookRelease; set => bookRelease = value; }
         public List<int> Genres { get => genres; set => genres = value; }
+        public double Rating { get => rating; set => rating = value; }
+
         public WSBook()
         {
             genres = new List<int>();
-        }
+        }//empty constructor
         public WSBook(DataRow book)
         {
             id = int.Parse(book.ItemArray[0].ToString());
@@ -51,16 +54,30 @@ namespace ISBN
             bookRelease = DateTime.Parse(book.ItemArray[8].ToString());
             genres = new List<int>();
             LoadGenres();
-        }
+        }//constructor with datarow
+
+        public WSBook(string isbn, string bookName, string author, string publisher, string synopsis, int numPages, int numChapters, double rating, DateTime bookRelease, List<int> genres)
+        {
+            this.isbn = isbn;
+            this.bookName = bookName;
+            this.author = author;
+            this.publisher = publisher;
+            this.synopsis = synopsis;
+            this.numPages = numPages;
+            this.numChapters = numChapters;
+            this.rating = rating;
+            this.bookRelease = bookRelease;
+            this.genres = genres;
+        }//constructor
 
         public static WSBook GetBookByISBN(string isbn)
         {
-            DataRow bookRow = BookHelper.GetBookByISBN(isbn);
-            if(bookRow == null)
+                DataRow bookRow = BookHelper.GetBookByISBN(isbn);
+                if(bookRow == null)
                 return null;
             WSBook newBook = new WSBook(bookRow);
             return newBook;
-        }
+        }//return a wsbook object with corresponding isbn
         private bool LoadGenres()
         {
             DataTable genres = BookHelper.GetBookGenres(Id);
@@ -71,6 +88,18 @@ namespace ISBN
                 this.genres.Add(int.Parse(genre.ItemArray[0].ToString()));
             }
             return true;
-        }
+        }//loads current books genre from database
+        public static bool UpdateBookRating(string isbn, double rating)
+        {
+            return BookHelper.UpdateRating(isbn, rating);
+        }//updates book with corresponding isbn's rating
+        public bool InsertNewBook()
+        {
+            int newID = BookHelper.InsertBook(new List<object> { BookName, synopsis }, Author, Publisher, NumPages, NumChapters, BookRelease, Isbn);
+            if (newID == -1)
+                return false;
+            bool success = GenreHelper.InsertGenres(newID, Genres);
+            return success;
+        }//insert a book object to database
     }
 }
