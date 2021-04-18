@@ -56,20 +56,6 @@ namespace ISBN
             LoadGenres();
         }//constructor with datarow
 
-        public WSBook(string isbn, string bookName, string author, string publisher, string synopsis, int numPages, int numChapters, double rating, DateTime bookRelease, List<int> genres)
-        {
-            this.isbn = isbn;
-            this.bookName = bookName;
-            this.author = author;
-            this.publisher = publisher;
-            this.synopsis = synopsis;
-            this.numPages = numPages;
-            this.numChapters = numChapters;
-            this.rating = rating;
-            this.bookRelease = bookRelease;
-            this.genres = genres;
-        }//constructor
-
         public static WSBook GetBookByISBN(string isbn)
         {
                 DataRow bookRow = BookHelper.GetBookByISBN(isbn);

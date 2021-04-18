@@ -65,9 +65,9 @@ namespace ISBN
         /// <param name="genres"></param>
         /// <returns></returns>
         [WebMethod]
-        public bool AddNewBook(string isbn, string bookName, string author, string publisher, string synopsis, int numPages, int numChapters, double rating, DateTime bookRelease, int[] genres)
+        public bool AddNewBook(WSBook newBook)
         {
-            return (new WSBook(isbn, bookName, author, publisher, synopsis, numPages, numChapters, rating, bookRelease, genres.ToList())).InsertNewBook();
+            return newBook.InsertNewBook();
         }
     }
 }
